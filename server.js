@@ -34,7 +34,16 @@ const limiter = rateLimit({
 });
 
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+    'https://glam-beuty.vercel.app',
+    'https://glam-admin.vercel.app'
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    credentials: true
+}));
 app.use(helmet());
 app.use('/api', limiter);
 
